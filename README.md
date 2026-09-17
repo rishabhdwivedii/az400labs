@@ -76,25 +76,23 @@ App Service must be able to pull images from the registry. A managed identity
 with the `AcrPull` role is preferred; registry credentials are simpler for a
 temporary learning environment.
 
-In GitHub, open **Settings > Secrets and variables > Actions** and add:
+This repository uses GitHub OpenID Connect (OIDC), so no Azure passwords are
+stored in GitHub. In GitHub, open **Settings > Secrets and variables > Actions >
+Variables** and add:
 
-| Type     | Name                | Value                                          |
-| -------- | ------------------- | ---------------------------------------------- |
-| Variable | `ACR_LOGIN_SERVER`  | Registry host, such as `myregistry.azurecr.io` |
-| Variable | `AZURE_WEBAPP_NAME` | Existing Azure App Service name                |
-| Secret   | `ACR_USERNAME`      | ACR credential used by GitHub Actions          |
-| Secret   | `ACR_PASSWORD`      | ACR credential used by GitHub Actions          |
-| Secret   | `AZURE_CREDENTIALS` | Azure service principal JSON                   |
+| Name                    | Value                                  |
+| ----------------------- | -------------------------------------- |
+| `AZURE_CLIENT_ID`       | `2a363efb-b688-416d-9e5f-abba6a6501a6` |
+| `AZURE_TENANT_ID`       | `a432c79c-cc86-480c-bf38-b91aa2042841` |
+| `AZURE_SUBSCRIPTION_ID` | `9326c161-cc02-406d-9619-75945a01f932` |
+| `ACR_NAME`              | `acraz400ris9326`                      |
+| `ACR_LOGIN_SERVER`      | `acraz400ris9326.azurecr.io`           |
+| `AZURE_WEBAPP_NAME`     | `az400-actions-risdwivedi-9326`        |
 
-For a lab service principal, use Azure CLI and scope it as narrowly as possible:
-
-```powershell
-az ad sp create-for-rbac --name az400-actions-lab --role Contributor --scopes /subscriptions/<subscription-id>/resourceGroups/<resource-group> --sdk-auth
-```
-
-Store the complete JSON output as `AZURE_CREDENTIALS`. Do not place it in
-`.env`. Push another commit or manually dispatch the workflow. The `deploy` job
-stays skipped until both repository variables are present.
+Create a GitHub environment named `production` under **Settings > Environments**.
+The Azure federated identity is restricted to that environment. No repository
+secrets are required. Push another commit or manually dispatch the workflow;
+the `deploy` job stays skipped until the required variables are present.
 
 ## Part 5: Mark a release
 
