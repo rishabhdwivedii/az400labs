@@ -58,6 +58,8 @@ jobs:
     needs: container
     runs-on: ubuntu-latest
     environment: production
+    env:
+      AZURE_RESOURCE_GROUP: rg-az400-actions-lab
     permissions:
       contents: read
       id-token: write
@@ -83,6 +85,13 @@ jobs:
           tags: |
             ${{ vars.ACR_LOGIN_SERVER }}/az400-actions-lab:${{ github.sha }}
             ${{ vars.ACR_LOGIN_SERVER }}/az400-actions-lab:latest
+
+      - name: Configure managed identity image pulls
+        run: |
+          az webapp config set \
+            --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+            --name ${{ vars.AZURE_WEBAPP_NAME }} \
+            --generic-configurations '{"acrUseManagedIdentityCreds": true}'
 
       - name: Deploy container to Azure App Service
         uses: azure/webapps-deploy@v3
