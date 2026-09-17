@@ -112,3 +112,5 @@ Delete the Azure resource group after the lab to stop charges:
 ```powershell
 az group delete --name <resource-group> --yes --no-wait
 ```
+
+#trigger
