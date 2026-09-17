@@ -17,7 +17,7 @@ Container Registry (ACR), and Azure App Service deployment.
 
 ## Prerequisites
 
-- Node.js 20 or later
+- Node.js 24 or later
 - Docker Desktop
 - Git and a GitHub account
 - Azure CLI and an Azure subscription for the deployment section

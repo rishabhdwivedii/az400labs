@@ -10,6 +10,6 @@
     "check": "node --check src/server.js && node --check test/server.test.js"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=24"
   }
 }

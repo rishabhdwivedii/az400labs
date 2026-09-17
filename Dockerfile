@@ -1,11 +1,11 @@
-FROM node:20-alpine AS test
+FROM node:24-alpine AS test
 WORKDIR /app
 COPY package.json ./
 COPY src ./src
 COPY test ./test
 RUN npm run check && npm test
 
-FROM node:20-alpine AS runtime
+FROM node:24-alpine AS runtime
 ENV NODE_ENV=production \
     PORT=3000
 WORKDIR /app
