@@ -46,7 +46,7 @@ function requestHandler(request, response) {
       <header>
         <div class="eyebrow">GitHub Actions + Docker + Azure</div>
         <h1>${appName}</h1>
-        <div class="status">Running in ${environment}</div>
+        <div class="status">Running inn ${environment}</div>
       </header>
       <section>
         <h2>Pipeline path</h2>
